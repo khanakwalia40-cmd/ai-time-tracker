@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI-Powered Daily Time Tracking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Landing / Auth -->
+    <section id="auth-section" class="card">
+      <h1>AI-Powered Daily Time Tracker</h1>
+      <p>Log your day in minutes and analyse how you spend your 24 hours.</p>
+
+      <div id="auth-forms">
+        <div class="auth-box">
+          <h2>Register</h2>
+          <input id="reg-email" type="email" placeholder="Email" />
+          <input id="reg-password" type="password" placeholder="Password" />
+          <button id="register-btn">Create account</button>
+        </div>
+
+        <div class="auth-box">
+          <h2>Login</h2>
+          <input id="login-email" type="email" placeholder="Email" />
+          <input id="login-password" type="password" placeholder="Password" />
+          <button id="login-btn">Login</button>
+        </div>
+      </div>
+      <button id="google-btn" class="secondary">Continue with Google</button>
+      <p id="auth-message" class="info"></p>
+    </section>
+
+    <!-- Main app -->
+    <section id="main-section" class="hidden">
+      <header class="top-bar">
+        <div>
+          <h2>Daily Time Tracking</h2>
+          <p id="user-email"></p>
+        </div>
+        <button id="logout-btn" class="danger">Logout</button>
+      </header>
+
+      <section class="card">
+        <h3>Log Activities</h3>
+        <label>
+          Select date:
+          <input type="date" id="date-input" />
+        </label>
+
+        <div id="remaining-container">
+          Remaining minutes for this day:
+          <span id="remaining-minutes">1440</span>
+        </div>
+
+        <div id="activity-form">
+          <input id="activity-name" type="text" placeholder="Activity name" />
+          <input id="activity-category" type="text" placeholder="Category (Work, Study, Sleep...)" />
+          <input id="activity-duration" type="number" placeholder="Duration (minutes)" />
+          <button id="add-activity-btn">Add Activity</button>
+        </div>
+
+        <table id="activity-table">
+          <thead>
+            <tr>
+              <th>Activity</th>
+              <th>Category</th>
+              <th>Minutes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="activity-tbody"></tbody>
+        </table>
+      </section>
+
+      <section class="card">
+        <div class="analyse-header">
+          <h3>Analytics Dashboard</h3>
+          <button id="analyse-btn">Analyse Selected Date</button>
+        </div>
+        <div id="dashboard-content">
+          <!-- Filled by JS -->
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Import Firebase modules from CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      updateDoc,
+      arrayUnion
+    } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+    // TODO: REPLACE WITH YOUR CONFIG FROM FIREBASE CONSOLE
+    const firebaseConfig = {
+  apiKey: "AIzaSyB0SKuyeCK1qvT2hJ1ZVz1Qa3AaGDtFVC8",
+  authDomain: "ai-time-tracker-ff703.firebaseapp.com",
+  projectId: "ai-time-tracker-ff703",
+  storageBucket: "ai-time-tracker-ff703.firebasestorage.app",
+  messagingSenderId: "869126992092",
+  appId: "1:869126992092:web:1141f697b1a63aca79c419",
+  measurementId: "G-5DW2KKEYH1"
+};
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Expose to window so app.js can use
+    window._firebase = { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, doc, setDoc, getDoc, updateDoc, arrayUnion };
+  </script>
+
+  <script src="app.js"></script>
+</body>
+</html>
