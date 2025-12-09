@@ -36,8 +36,11 @@ A web application that helps users log their daily activities (in minutes) and a
 
 ## Folder Structure
 ├── index.html # Main HTML file, Firebase config, and script imports
+
 ├── style.css # Styling for layout, responsiveness, and dashboard UI
+
 ├── app.js # All app logic: auth, CRUD operations, analytics
+
 └── README.md
 
 ## Firebase Configuration
@@ -62,7 +65,7 @@ To run this project with your own Firebase project:
 ## How to Run Locally
 
 1. Clone the repository:
-git clone https://github.com/YOUR_USERNAME/ai-time-tracker.git
+git clone https://github.com/khanakwalia40-cmd/ai-time-tracker
 cd ai-time-tracker
 
 2. Open the project in your code editor.
